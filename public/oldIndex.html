@@ -1,0 +1,95 @@
+<html>
+
+<head>
+    <script>
+        window.onload = () => {
+            document.querySelector("form").addEventListener("submit", (e) => {
+                document.querySelector(".container").innerHTML = "";
+                console.log(e.target);
+                let txt = document.querySelector('input').value;
+                urlUsage(txt);
+            })
+            // let exampleData = {
+            //     "ISBN:0385472579": { "bib_key": "ISBN:0385472579", "info_url": "https://openlibrary.org/books/OL1397864M/Zen_speaks", "preview": "noview", "preview_url": "https://openlibrary.org/books/OL1397864M/Zen_speaks", "thumbnail_url": "https://covers.openlibrary.org/b/id/240726-S.jpg" },
+
+            //     "ISBN:1411469437": { "bib_key": "ISBN:1411469437", "info_url": "https://openlibrary.org/books/OL27565763M/Atlas_Shrugged_SparkNotes_Literature_Guide", "preview": "noview", "preview_url": "https://openlibrary.org/books/OL27565763M/Atlas_Shrugged_SparkNotes_Literature_Guide", "thumbnail_url": "https://covers.openlibrary.org/b/id/9020654-S.jpg" },
+
+            //     "ISBN:9780140328721": { "bib_key": "ISBN:9780140328721", "info_url": "https://openlibrary.org/books/OL7353617M/Fantastic_Mr._Fox", "preview": "borrow", "preview_url": "https://archive.org/details/fantasticmrfoxpu00roal", "thumbnail_url": "https://covers.openlibrary.org/b/id/8739161-S.jpg" },
+
+            //     "LCCN:62019420": { "bib_key": "LCCN:62019420", "info_url": "https://openlibrary.org/books/OL5857365M/The_adventures_of_Tom_Sawyer", "preview": "noview", "preview_url": "https://openlibrary.org/books/OL5857365M/The_adventures_of_Tom_Sawyer" },
+
+            //     "LCCN:123": { "bib_key": "LCCN:62019420", "info_url": "https://openlibrary.org/books/OL5857365M/The_adventures_of_Tom_Sawyer", "preview": "noview", "preview_url": "https://openlibrary.org/books/OL5857365M/The_adventures_of_Tom_Sawyer" },
+
+            //     "LCCN:456": { "bib_key": "LCCN:62019420", "info_url": "https://openlibrary.org/books/OL5857365M/The_adventures_of_Tom_Sawyer", "preview": "noview", "preview_url": "https://openlibrary.org/books/OL5857365M/The_adventures_of_Tom_Sawyer" },
+
+            //     "LCCN:789": { "bib_key": "LCCN:62019420", "info_url": "https://openlibrary.org/books/OL5857365M/The_adventures_of_Tom_Sawyer", "preview": "noview", "preview_url": "https://openlibrary.org/books/OL5857365M/The_adventures_of_Tom_Sawyer" }
+            // }
+            function urlUsage(isbn) {
+                var url = `https://openlibrary.org/api/books?bibkeys=${encodeURIComponent(isbn)}&format=json`;
+                fetch(url)
+                    .then(responce => responce.json())
+                    // Promise.resolve(exampleData)
+                    .then(information => {
+                        console.log(information);
+                        return information
+                    })
+                    .then((books) => {
+                        document.querySelector(".container").innerHTML = "";
+                        let arr = Object.keys(books)
+                            .map(key => ({
+                                url: books[key].thumbnail_url ?? "https://lh3.googleusercontent.com/proxy/2_suCAerzLQRpgpeOe8SSY6dIiZVgOm9FWDsZ29VyY5tr6P1gIcXkuG5nYH9BnoRRxa5wijma8yuruDq3_Wlmwq43XSwAIA",
+                                infos: books[key].info_url
+                            }
+                            ))
+                            .map(({ url, infos }) => {
+                                function lastElem(parts) {
+                                    return parts[parts.length - 1]
+                                }
+
+                                let content = lastElem(infos.split("/"))
+                                var div = document.createElement("div")
+                                var a = document.createElement("a")
+                                a.setAttribute("href", infos)
+                                let newContent = document.createTextNode(content)
+                                var img = document.createElement("img")
+                                img.setAttribute("src", url)
+                                a.appendChild(img)
+                                div.appendChild(a)
+                                div.appendChild(newContent)
+                                document.querySelector(".container").appendChild(div)
+                                div.setAttribute("class", "bookStyle")
+                            });
+                    });
+            };
+        }
+    </script>
+    <style>
+        img {
+            width: 100px;
+            height: 100px;
+            border: 2px solid red;
+            margin: 5px;
+        }
+
+        .container {
+            display: flex;
+            border: 2px solid grey;
+            flex-wrap: wrap;
+            width: 500px;
+        }
+
+        .bookStyle {
+            width: 150px;
+            overflow-wrap: break-word;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="#">
+        <input type="text" value="ISBN:0385472579,ISBN:1411469437,ISBN:9780140328721,LCCN:62019420">
+    </form>
+    <div class="container"></div>
+</body>
+
+</html>
