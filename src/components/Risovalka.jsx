@@ -2,23 +2,34 @@ import styles from './Book.module.css'
 import { useState } from 'react'
 
 export default function Risovalka(props) {
-    const [coord, setCoord] = useState({ x: 0, y: 0 })
-    const [click, setClick] = useState(coord)
+    const [currentCoord, setCoord] = useState({ x: 0, y: 0 })
+    const [lastClick, setLastClick] = useState(currentCoord)
+    const [coordinates, setCoordinates] = useState([])
+    // coordinates.push({x: 250, y: 250})
+    const handleMove = function (e) {
+        let x = e.clientX;
+        let y = e.clientY;
+        setCoord({ x, y })
+    }
+    const handleClick = function (e) {
+        setLastClick(currentCoord) // lastClick = currentCoord
+        console.log(coordinates.length)
+        setCoordinates([...coordinates, currentCoord]); // coordinates = [...coordinates, currentCoord]
+        console.log(coordinates.length)
+    }
+    // const logs = function (...rest) {
+    //     console.log(rest)
+    // }
 
-    const coordinates = [{ x: 50, y: 50 }, { x: 150, y: 150 }]
-    coordinates.push({x: 250, y: 250})
+    return (
+        <div className={styles.risovalkaContainer}
+            onMouseMove={handleMove}
+            onClick={handleClick}
+        ><div className={styles.ring} style={{ borderColor: "#f00", top: lastClick.y, left: lastClick.x, zIndex: 20 }}>
 
-    return <div className={styles.risovalkaContainer}
-        onMouseMove={(e) => {
-            let x = e.clientX;
-            let y = e.clientY;
-            setCoord({ x, y })
-        }}
-        onClick={(e) => {
-            setClick(coord)
-        }}>
-        {coordinates.map((coord) => (<div className={styles.ring} style={{top: coord.x, left: coord.y}}></div>))}
-            Координаты X: {coord.x} <br />
-            Координаты Y: {coord.y}
-    </div>
+            </div>
+            {coordinates.map((coord) => (<div className={styles.ring} style={{ top: coord.y, left: coord.x }}></div>))}
+            Координаты X: {currentCoord.x} <br />
+            Координаты Y: {currentCoord.y}
+        </div>)
 }
