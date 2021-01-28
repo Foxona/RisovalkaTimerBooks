@@ -1,0 +1,23 @@
+.book {
+    border: 2px solid red;
+    width: 200px;
+    /* height: 200px; */
+    overflow-wrap: break-word;
+    padding: 5px;
+    margin: 5px;
+}
+
+.image {
+    display: block;
+    height: 150px;
+    width: 150px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.risovalkaContainer {
+    border: 2px solid red;
+    width: 500px;
+    height: 500px;
+}
+
