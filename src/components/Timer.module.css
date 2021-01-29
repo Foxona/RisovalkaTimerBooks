@@ -1,0 +1,29 @@
+.timer {
+    display: flex;
+    width: 200px;
+    height: 100px;
+    border: 2px solid black;
+    border-radius: 5px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.time {
+    margin: auto;
+    font-size: 36px;
+}
+
+.button {
+    border-left: 2px solid black;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    padding: 0 15px;
+    background-color: springgreen;
+}
+
+.finish {
+    padding-left: 50px;
+    height: 25px;
+}

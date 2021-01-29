@@ -2,6 +2,7 @@ import styles from './App.module.css';
 import RenderBooks from './components/RenderBooks'
 import { useState, useEffect } from "react"
 import Risovalka from './components/Risovalka';
+import Timer from './components/Timer';
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
 
   return (
     <div className="App">
+      <Timer onClickButton={() => {}} buttonColor={"blue"} />
       <InfiniteRender></InfiniteRender>
       <input type="text" value={state} onChange={(e) => { setState(e.target.value) }}></input>
       <div className={styles.container}>

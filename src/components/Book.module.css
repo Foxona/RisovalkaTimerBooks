@@ -23,7 +23,7 @@
 
 .ring {
     position: absolute;
-    z-index: 10;
+    /* z-index: 10; */
     width: 15px;
     height: 15px;
     color:chartreuse;
