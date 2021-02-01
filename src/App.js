@@ -5,8 +5,8 @@ import Risovalka from './components/Risovalka';
 import Timer from './components/Timer';
 
 function App() {
-
   const [state, setState] = useState("3")
+  const [btnClr, setBtnClr] = useState("blue")
   let max = (state) - 0;
   const objects = [];
   if (max > 12) { max = 12 }
@@ -20,7 +20,14 @@ function App() {
 
   return (
     <div className="App">
-      <Timer onClickButton={() => {}} buttonColor={"blue"} />
+      <Timer onClickButton={(s) => {
+        console.log("Timer is currently: " + (s ? "started" : "stopped"))
+        setBtnClr(s ? "blue" : "red")
+      }}
+        onStarted={() => {}}
+        waitSeconds={9}
+        finishText="TIME OUT"
+        buttonColor={btnClr} />
       <InfiniteRender></InfiniteRender>
       <input type="text" value={state} onChange={(e) => { setState(e.target.value) }}></input>
       <div className={styles.container}>
