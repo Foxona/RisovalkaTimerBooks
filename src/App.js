@@ -24,11 +24,9 @@ function App() {
         console.log("Timer is currently: " + (s ? "started" : "stopped"))
         setBtnClr(s ? "blue" : "red")
       }}
-        onStarted={() => {}}
         waitSeconds={9}
         finishText="TIME OUT"
         buttonColor={btnClr} />
-      <InfiniteRender></InfiniteRender>
       <input type="text" value={state} onChange={(e) => { setState(e.target.value) }}></input>
       <div className={styles.container}>
         <RenderBooks books={objects}></RenderBooks>
@@ -36,16 +34,6 @@ function App() {
       <Risovalka></Risovalka>
     </div>
   );
-}
-
-function InfiniteRender(props) {
-  const [count, setCount] = useState(0)
-  console.log("Render: " + count)
-
-  return (
-    <div onClick={() => setCount(count + 1)}>
-      {count}
-    </div>)
 }
 
 export default App;
