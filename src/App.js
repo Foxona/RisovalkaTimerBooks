@@ -3,6 +3,7 @@ import RenderBooks from './components/RenderBooks'
 import { useState, useEffect } from "react"
 import Risovalka from './components/Risovalka';
 import Timer from './components/Timer';
+import Form from './components/Form'
 
 function App() {
   const [state, setState] = useState("3")
@@ -20,7 +21,8 @@ function App() {
 
   return (
     <div className="App">
-      <Timer onClickButton={(s) => {
+      <Form />
+      {/* <Timer onClickButton={(s) => {
         console.log("Timer is currently: " + (s ? "started" : "stopped"))
         setBtnClr(s ? "blue" : "red")
       }}
@@ -31,7 +33,7 @@ function App() {
       <div className={styles.container}>
         <RenderBooks books={objects}></RenderBooks>
       </div>
-      <Risovalka></Risovalka>
+      <Risovalka></Risovalka> */}
     </div>
   );
 }

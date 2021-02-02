@@ -9,7 +9,7 @@ export default function Timer({ onClickButton, buttonColor, waitSeconds, finishT
         //  BUG: stop button broken
         // if (!started && v === 0) {return}
         if (v !== 0) {
-            console.log("handleTimer: " + v)
+            // console.log("handleTimer: " + v)
             setTextValue(v)
             setTimeout(() => { handleTimer(v - 1) }, 1000)
         } else {
@@ -21,7 +21,7 @@ export default function Timer({ onClickButton, buttonColor, waitSeconds, finishT
     return (<TimerRender started={started} buttonColor={buttonColor} finish={finished}
         onButtonClicked={() => {
             setStarted(!started)
-            if (!started) { handleTimer(textValue) ; setFinished(false) }
+            if (!started) { handleTimer(textValue); setFinished(false) }
             if (started) { setTextValue(waitSeconds) }
             onClickButton(started)
 
@@ -36,6 +36,7 @@ export default function Timer({ onClickButton, buttonColor, waitSeconds, finishT
 
 function TimerRender(props) {
     const { started, buttonColor, finish, onButtonClicked, onInputChange, onKeyUp, onKeyDown, text, finishText } = props;
+
     return (<>
         <div className={styles.timer}>
             <div className={styles.time}>
