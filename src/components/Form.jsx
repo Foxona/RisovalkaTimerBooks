@@ -36,30 +36,31 @@ function TemperatureInput({ scale, temperature, onTemperatureChange }) {
     return (
         <fieldset>
             <legend>Enter temperature in {scaleNames[scale]}:</legend>
-            <input value={temperature} onChange={(e) => onTemperatureChange(e.target.value, scale )} />
+            <input value={temperature} onChange={(e) => onTemperatureChange({newTemp: e.target.value, newScale: scale})} />
         </fieldset>
     )
 }
 
 export default function Calculator(props) {
     const [scale, setScale] = useState("c")
-    const [celsius, setCelsius] = useState(0)
-    const [fahrenheit, setFahrenheit] = useState(0)
+    const [temperature, setTemperature] = useState("")
+    const fahrenheitConvert = (scale === 'c') ? tryConvert(temperature, toFahrenheit) : temperature
+    const celsiusConvert = (scale === 'f') ? tryConvert(temperature, toCelsius) : temperature
     
-    const handleTemperatureChange = (newTemp, newScale) => {
-        const fahrenheitConvert = (newScale === 'c') ? tryConvert(newTemp, toFahrenheit) : newTemp
-        const celsiusConvert = (newScale === 'f') ? tryConvert(newTemp, toCelsius) : newTemp
+    const handleTemperatureChange = (e) => {
+        // const {newTemp, newScale} = e
+        const newTemp = e.newTemp
+        const newScale = e.newScale
 
         setScale(newScale)
-        setCelsius(celsiusConvert)
-        setFahrenheit(fahrenheitConvert)
+        setTemperature(newTemp)
     }
 
     return (
         <div>
-            <TemperatureInput scale={"c"} temperature={celsius} onTemperatureChange={handleTemperatureChange} />
-            <TemperatureInput scale={"f"} temperature={fahrenheit} onTemperatureChange={handleTemperatureChange} />
-            <BoilingVerdict celsius={parseFloat(celsius)} />
+            <TemperatureInput scale={"c"} temperature={celsiusConvert} onTemperatureChange={handleTemperatureChange} />
+            <TemperatureInput scale={"f"} temperature={fahrenheitConvert} onTemperatureChange={handleTemperatureChange} />
+            <BoilingVerdict celsius={parseFloat(celsiusConvert)} />
         </div>
     )
 }
